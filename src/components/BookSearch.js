@@ -48,12 +48,11 @@ class BookSearch extends Component {
 			                          <div className="book-top">
 			                            <img src={book.imageLinks.thumbnail} className="book-cover" alt="cover"/>
 			                            <div className="book-shelf-changer">
-			                              <select onChange={(event) => {this.changeShelf(book, event.target.value)}}>
+			                              <select value=""onChange={(event) => {this.changeShelf(book, event.target.value)}}>
 			                                <option value="none" disabled>Move to...</option>
 			                                <option value="currentlyReading">Currently Reading</option>
 			                                <option value="wantToRead">Want to Read</option>
 			                                <option value="read">Read</option>
-			                                <option value="none">None</option>
 			                              </select>
 			                            </div>
 			                          </div>
