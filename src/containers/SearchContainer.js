@@ -1,48 +1,53 @@
-import React, { Component } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types';
 import SearchBar from '../components/SearchBar/SearchBar'
 import Book from '../components/Book/Book'
 import '../styles/App.css'
 
-class SearchContainer extends Component {
+const SearchContainer = ({ booksResults, updateBooks, searchBook, updateBook }) => {
 
-	changeShelf = (book, shelf) => {
-		this.props.updateBook(book, shelf)
+	const changeShelf = (book, shelf) => {
+		updateBook(book, shelf)
 	}
 
-	handleChange = (query) => {
+	const handleChange = (query) => {
 		if(query.trim().length === 0){
-			this.props.updateBooks('books')
-			this.props.searchBook(query.trim())
+			updateBooks('books')
+			searchBook(query.trim())
 		}else {
-			this.props.searchBook(query.trim())
+			searchBook(query.trim())
 		}
 	}
 
-	render() {
-		const { booksResults } = this.props
-		return (
-			<div>
-				<div className="search-books">
-					<SearchBar searchBook={this.props.searchBook} updateBooks={this.props.updateBooks} change={this.handleChange}/>
-					<div className="search-books-results">
-						<ol className="books-grid">
-							{booksResults.length > 0?
-								booksResults.map((book, index) => {
-									return <Book
-												key={book.id}
-												book={book}
-												changeShelf={this.changeShelf}	
-											/>
-								})
-								:
-								null
-							}
-						</ol>
-					</div>
+	return (
+		<div>
+			<div className="search-books">
+				<SearchBar searchBook={searchBook} updateBooks={updateBooks} change={handleChange}/>
+				<div className="search-books-results">
+					<ol className="books-grid">
+						{booksResults.length > 0?
+							booksResults.map((book, index) => {
+								return <Book
+											key={book.id}
+											book={book}
+											changeShelf={changeShelf}	
+										/>
+							})
+							:
+							null
+						}
+					</ol>
 				</div>
 			</div>
-		)
-	}
+		</div>
+	)
+}
+
+SearchContainer.propTypes ={
+	booksResults: PropTypes.arrayOf(PropTypes.object),
+	updateBooks: PropTypes.func,
+	updateBook: PropTypes.func,
+	searchBook: PropTypes.func,	
 }
 
 export default SearchContainer
