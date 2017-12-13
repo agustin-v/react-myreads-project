@@ -1,8 +1,16 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types';
 import './book.css'
 
 class Book extends Component {
 	
+	static propTypes ={
+		noneShelf: PropTypes.bool,
+		shelf: PropTypes.string,
+		book: PropTypes.object,
+		changeShelf: PropTypes.func,
+	}
+
 	render() {
 		const { noneShelf, shelf, book } = this.props
 		return (

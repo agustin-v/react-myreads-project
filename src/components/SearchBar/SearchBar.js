@@ -1,8 +1,15 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types';
 import './searchBar.css'
 
 class SearchBar extends Component {
+
+	static propTypes ={
+		updateBooks: PropTypes.func,
+		change: PropTypes.func,
+		
+	}
 	
 	render() {
 		return (

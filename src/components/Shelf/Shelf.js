@@ -1,9 +1,17 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types';
 import Book from '../Book/Book'
 import './shelf.css'
 
 class Shelf extends Component {
 	
+	static propTypes ={
+		label: PropTypes.string,
+		book: PropTypes.arrayOf(PropTypes.object),
+		changeShelf: PropTypes.func,
+		
+	}
+
 	render() {
 		const { label, books } = this.props
 		return (
