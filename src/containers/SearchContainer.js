@@ -29,6 +29,7 @@ const SearchContainer = ({ booksResults, updateBooks, searchBook, updateBook }) 
 							booksResults.map((book, index) => {
 								return <Book
 											key={book.id}
+											shelf={book.shelf}
 											book={book}
 											changeShelf={changeShelf}	
 										/>

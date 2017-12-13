@@ -7,7 +7,8 @@ import '../styles/App.css'
 const LibraryContainer = ({books, updateBooks, updateBook}) => {
 
 	const changeShelf = (book, shelf) => {
-		this.props.updateBook(book, shelf)
+
+		updateBook(book, shelf)
 	}
 
 	const booksClassified = [
@@ -27,7 +28,7 @@ const LibraryContainer = ({books, updateBooks, updateBook}) => {
 			books: books.filter(book => book.shelf === 'read')
 		}
 	];
-	
+
 	return(
 		<div>
 			<div className="list-books">
@@ -58,9 +59,15 @@ const LibraryContainer = ({books, updateBooks, updateBook}) => {
 }
 
 LibraryContainer.propTypes ={
-	books: PropTypes.arrayOf(PropTypes.object),
+	books: PropTypes.array,
 	updateBooks: PropTypes.func,
 	updateBook: PropTypes.func,	
+}
+
+LibraryContainer.defaultProps ={
+	books: [],
+	updateBooks: () => {},
+	updateBook: () => {},	
 }
 
 export default LibraryContainer

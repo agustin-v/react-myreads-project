@@ -22,9 +22,20 @@ class BooksApp extends React.Component {
     searchBook = (query) => {
         if(query.length > 0) {
             BooksAPI.search (query, 10).then((books) => {
-                this.setState({books: books})
+                this.setState({books: books.map( (bookItem) => {
+                    let combinedItem = this.state.all.find(( allItem )=>{
+                        if(bookItem.id === allItem.id){
+                            return {...bookItem, shelf: allItem.shelf}
+                        }
+                    })
+                    if (combinedItem === undefined){
+                        return bookItem
+                    }else{
+                        return combinedItem
+                    }
+                })})
             });
-        }  
+        } 
     }
 
     updateBooks = (prop) => {
@@ -41,16 +52,16 @@ class BooksApp extends React.Component {
     }
 
     updateBook = (book, shelf) => {
-        BooksAPI.update(book, shelf).then((book) => {
-            this.setState({all: this.state.all.concat(book)})
-        })
-        BooksAPI.getAll().then((books) => {
-            this.setState({all: books})
+        BooksAPI.update(book, shelf).then(() => {
+            book.shelf = shelf
+            this.setState(state => ({
+              all: this.state.all.filter(b=> b.id !== book.id).concat([book])
+            }))
         })
     }
 
   render() {
-    console.log('state', this.state.books)
+    console.log('state', this.state)
     return (
       <div className="app">
       <Switch>
